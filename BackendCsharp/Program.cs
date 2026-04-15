@@ -1,7 +1,9 @@
+using BudgetApi;
 using BudgetApi.Data;
 using BudgetApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -9,6 +11,17 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+// Bütün kaynaklardan gelen isteklere izin ver (Geliştirme için)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
 
 // PostgreSQL (EF Core) Bağlantısı
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -59,15 +72,24 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+var defaultConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 if (app.Environment.IsDevelopment())
 {
+    PostgresDatabaseBootstrap.EnsureDatabaseExists(defaultConnection);
+    using (var scope = app.Services.CreateScope())
+    {
+        var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        db.Database.Migrate();
+    }
+
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
 // app.UseHttpsRedirection(); // SSL Sertifika uyarısı vermemesi ve Mobil cihazlardan teste kolaylık sağlaması için iptal edildi.
 
-// Middlewares (Sırlama Önemli: Authentication -> Authorization)
+// Middlewares (Sırlama Önemli: CORS -> Authentication -> Authorization)
+app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 

@@ -1,4 +1,9 @@
--- PostgreSQL DDL Script
+-- ESKİ / REFERANS — Projede şema kaynağı Entity Framework migration’lardır.
+-- Tabloları oluşturmak için: BackendCsharp klasöründe `dotnet ef database update`
+-- veya Development ortamında API’yi `dotnet run` ile başlatın (otomatik Migrate uygulanır).
+-- Güncel modelde categories tablosunda UserId (FK → users) vardır; bu dosya güncellenmemiş olabilir.
+
+-- PostgreSQL DDL Script (referans)
 -- "Yapay Zeka Destekli Bütçe Yönetim Sistemi"
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";

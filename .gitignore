@@ -38,3 +38,13 @@ DerivedData/
 # Windows/MacOS/Linux
 .DS_Store
 Thumbs.db
+
+# .NET
+**/bin/
+**/obj/
+*.user
+*.suo
+
+# Local env (keep .env.example tracked if you add one)
+.env
+.env.local

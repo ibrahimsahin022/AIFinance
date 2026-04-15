@@ -16,6 +16,7 @@ namespace BudgetApi.Models
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         // Navigation Properties
+        public ICollection<Category> Categories { get; set; } = new List<Category>();
         public ICollection<Income> Incomes { get; set; } = new List<Income>();
         public ICollection<Expense> Expenses { get; set; } = new List<Expense>();
     }

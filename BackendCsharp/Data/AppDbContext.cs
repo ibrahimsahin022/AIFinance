@@ -22,6 +22,12 @@ namespace BudgetApi.Data
             modelBuilder.Entity<Income>().ToTable("incomes");
             modelBuilder.Entity<Expense>().ToTable("expenses");
 
+            modelBuilder.Entity<Category>()
+                .HasOne(c => c.User)
+                .WithMany(u => u.Categories)
+                .HasForeignKey(c => c.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             // User -> Income Relationship (Kullanıcı silindiğinde Gelirleri de silinsin CASCADE)
             modelBuilder.Entity<Income>()
                 .HasOne(i => i.User)

@@ -110,3 +110,4 @@ C:\Users\ibrah\OneDrive\Masaüstü\Projem\BackendCsharp\obj\Debug\net8.0\refint\
 C:\Users\ibrah\OneDrive\Masaüstü\Projem\BackendCsharp\obj\Debug\net8.0\BudgetApi.pdb
 C:\Users\ibrah\OneDrive\Masaüstü\Projem\BackendCsharp\obj\Debug\net8.0\BudgetApi.genruntimeconfig.cache
 C:\Users\ibrah\OneDrive\Masaüstü\Projem\BackendCsharp\obj\Debug\net8.0\ref\BudgetApi.dll
+C:\Users\ibrah\OneDrive\Masaüstü\Projem\BackendCsharp\obj\Debug\net8.0\BudgetApi.sourcelink.json
